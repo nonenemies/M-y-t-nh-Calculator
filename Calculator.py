@@ -12,27 +12,23 @@ class ExtendedCalculator(QWidget):
         super().__init__()
         self.setWindowTitle("Máy tính Khoa học Mở rộng - Responsive")
 
-        # --- FIX LỖI TRÀN MÀN HÌNH TẠI ĐÂY ---
-        # Không dùng setFixedSize nữa. Đặt kích thước tối thiểu và kích thước khởi tạo
-        self.setMinimumSize(750, 450)  # Không cho phép thu nhỏ hơn mức này
-        self.resize(850, 550)  # Kích thước mở lên mặc định to và thoáng hơn
+        self.setMinimumSize(750, 450) 
+        self.resize(850, 550)
 
         self.initUI()
 
     def initUI(self):
         self.main_layout = QHBoxLayout()
-        self.main_layout.setContentsMargins(15, 15, 15, 15)  # Tạo lề cho toàn bộ app
-        self.main_layout.setSpacing(20)  # Khoảng cách giữa phần Máy tính và Lịch sử
+        self.main_layout.setContentsMargins(15, 15, 15, 15)
+        self.main_layout.setSpacing(20)
 
-        # --- PHẦN BÊN TRÁI: MÁY TÍNH ---
         self.calc_layout = QVBoxLayout()
 
-        # Màn hình hiển thị
         self.display = QLineEdit('0')
         self.display.setReadOnly(True)
         self.display.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.display.setFont(QFont("Arial", 26, QFont.Weight.Bold))
-        self.display.setMinimumHeight(80)  # FIX: Đảm bảo màn hình không bị ép lùn xuống
+        self.display.setMinimumHeight(80)
         self.display.setStyleSheet("""
             QLineEdit {
                 background-color: #e8f4f8; 
@@ -44,9 +40,9 @@ class ExtendedCalculator(QWidget):
         """)
         self.calc_layout.addWidget(self.display)
 
-        # Lưới các nút bấm
+
         self.grid_layout = QGridLayout()
-        self.grid_layout.setSpacing(8)  # FIX: Thêm khoảng cách giữa các nút cho thoáng
+        self.grid_layout.setSpacing(8)
 
         buttons = [
             ('(', 0, 0), (')', 0, 1), ('C', 0, 2), ('⌫', 0, 3), ('/', 0, 4),
@@ -62,7 +58,6 @@ class ExtendedCalculator(QWidget):
             btn = QPushButton(text)
             btn.setFont(QFont("Arial", 14, QFont.Weight.Bold))
 
-            # Đổi màu cho các nhóm nút
             if text in ['+', '-', '*', '/']:
                 btn.setStyleSheet("background-color: #ff9900; color: white; border-radius: 6px;")
             elif text == 'C':
@@ -78,9 +73,8 @@ class ExtendedCalculator(QWidget):
 
             btn.clicked.connect(self.on_button_click)
 
-            # FIX: Cài đặt cho nút tự động co giãn theo cửa sổ
             btn.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-            btn.setMinimumHeight(50)  # Đảm bảo nút không bị bóp quá nhỏ
+            btn.setMinimumHeight(50)
 
             row, col = btn_data[1], btn_data[2]
             rowSpan = btn_data[3] if len(btn_data) > 3 else 1
@@ -90,7 +84,6 @@ class ExtendedCalculator(QWidget):
 
         self.calc_layout.addLayout(self.grid_layout)
 
-        # --- PHẦN BÊN PHẢI: LỊCH SỬ TÍNH TOÁN ---
         self.history_layout = QVBoxLayout()
 
         self.history_label = QLabel("Lịch sử tính toán")
@@ -103,7 +96,6 @@ class ExtendedCalculator(QWidget):
         self.history_display.setStyleSheet(
             "background-color: #fdfdfd; padding: 5px; border: 1px solid #ccc; border-radius: 8px;")
 
-        # Để phần lịch sử có thể dài xuống tận đáy
         self.history_display.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.history_layout.addWidget(self.history_display)
 
@@ -114,13 +106,11 @@ class ExtendedCalculator(QWidget):
         self.clear_history_btn.clicked.connect(lambda: self.history_display.clear())
         self.history_layout.addWidget(self.clear_history_btn)
 
-        # Ráp 2 phần vào Layout chính (Tỷ lệ 65% máy tính : 35% lịch sử)
         self.main_layout.addLayout(self.calc_layout, 65)
         self.main_layout.addLayout(self.history_layout, 35)
 
         self.setLayout(self.main_layout)
 
-    # --- CÁC HÀM XỬ LÝ LOGIC BÊN DƯỚI GIỮ NGUYÊN NHƯ CŨ ---
     def on_button_click(self):
         btn = self.sender()
         text = btn.text()
