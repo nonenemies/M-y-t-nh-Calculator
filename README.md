@@ -2,8 +2,6 @@
 
 Một ứng dụng máy tính cá nhân trên Desktop được xây dựng hoàn toàn bằng **Python** và thư viện **PyQt6**. Ứng dụng không chỉ cung cấp các phép tính cơ bản mà còn tích hợp các hàm toán học nâng cao, giao diện Responsive (co giãn linh hoạt) và cơ chế **bắt lỗi đầu vào (Input/Math Error Handling)** cực kỳ chặt chẽ.
 
-![Mô phỏng giao diện](https://via.placeholder.com/800x400.png?text=B%E1%BA%A1n+c%C3%B3+th%E1%BB%83+ch%C3%A8n+%E1%BA%A3nh+ch%E1%BB%A5p+m%C3%A0n+h%C3%ACnh+app+v%C3%A0o+%C4%91%C3%A2y)
-
 ---
 
 ## ✨ Tính năng nổi bật
